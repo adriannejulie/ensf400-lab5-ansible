@@ -2,10 +2,16 @@ import ansible_runner
 import os
 
 # Run plays from hello.yml
-run_config = ansible_runner.RunnerConfig(
+run_config, error, code = ansible_runner.RunnerConfig(
      playbook='./hello.yml',
      envvars={'ANSIBLE_CONFIG': './ansible.cfg'}
  )
+
+if code != 0:
+    print("Error running the playbook")
+    print(error)
+    exit (1)
+    
 run_config.prepare()
 ansible_runner.run_command('docker compose up -d')
 r = ansible_runner.Runner(config=run_config)
