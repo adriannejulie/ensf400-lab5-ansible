@@ -2,20 +2,25 @@ import ansible_runner
 import os
 
 # Run plays from hello.yml
-run_config, error, code = ansible_runner.RunnerConfig(
-     playbook='./hello.yml',
-     envvars={'ANSIBLE_CONFIG': './ansible.cfg'}
+f = open("./secrets/id_rsa", "r")
+ssh = f.read()
+private_data_dir = '.'
+run_config = ansible_runner.RunnerConfig(
+    inventory="./hosts.yml",
+    playbook='./hello.yml',
+    private_data_dir=private_data_dir,
+    ssh_key=ssh
  )
+error = run_config.prepare()
 
-if code != 0:
+if error:
     print("Error running the playbook")
     print(error)
     exit (1)
-    
-run_config.prepare()
+
 ansible_runner.run_command('docker compose up -d')
 r = ansible_runner.Runner(config=run_config)
-r.run()
+result = r.run()
 
 print("Verifying that apps are working:")
 for _ in range(6):  
