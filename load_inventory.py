@@ -18,7 +18,7 @@ if __name__ == "__main__":
         response = out[0]
 
     for host, info in response["_meta"]["hostvars"].items():
-        ip_address = info["ansible_host"]
+        ip_address = info.get("ansible_host", "Unknown")
         group_name = list(response.keys())[2]
         print(f"Host: {host}")
         print(f"IP Address: {ip_address}")
