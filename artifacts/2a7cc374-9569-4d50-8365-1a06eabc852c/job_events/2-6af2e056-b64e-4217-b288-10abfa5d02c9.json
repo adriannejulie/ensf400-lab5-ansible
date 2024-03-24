@@ -1,0 +1,1 @@
+{"event": "verbose", "uuid": "6af2e056-b64e-4217-b288-10abfa5d02c9", "counter": 2, "stdout": "sh: ansible-playbook: command not found", "start_line": 1, "end_line": 2, "runner_ident": "2a7cc374-9569-4d50-8365-1a06eabc852c", "created": "2024-03-24T21:28:07.959166"}

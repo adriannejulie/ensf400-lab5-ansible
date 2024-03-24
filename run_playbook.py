@@ -22,7 +22,6 @@ ansible_runner.run_command('docker compose up -d')
 r = ansible_runner.Runner(config=run_config)
 result = r.run()
 
-print("Verifying that apps are working:")
 for _ in range(6):  
     result = os.popen("curl --silent http://0.0.0.0").read()
     print(result)
